@@ -9,14 +9,21 @@ public class Day1 {
             .map(Integer::parseInt)
             .toList();
 
-        int increases = 0;
-        for(int i = 1 ; i < ints.size(); i++) {
-            if (ints.get(i-1) < ints.get(i)) {
-                ++increases;
+
+        var result = ints.stream().reduce(new DepthReducer(Integer.MAX_VALUE, 0), (previousDepth, element) ->
+        {
+            int count = previousDepth.count;
+            if (previousDepth.previousDepth < element){
+                count++;
             }
+            return new DepthReducer(element, count);
         }
-        return increases;
+        ,(a, b) -> a);
+
+        return result.count;
+
     }
 
-
+    record DepthReducer (
+        int previousDepth, int count){}
 }
