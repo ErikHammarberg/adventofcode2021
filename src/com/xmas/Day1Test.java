@@ -15,6 +15,14 @@ class Day1Test {
         System.out.println(result);
     }
 
+    @Test
+        public  void puzzle2() {
+        var result = sut.countWindowIncrease(day1Input);
+        assertTrue(result < 1859);
+        assertEquals(1858, result);
+        System.out.println(result);
+    }
+
 
     String day1Input = "193\n"
         + "195\n"
