@@ -26,10 +26,10 @@ public class Day1 {
     }
 
     private List<Integer> getInts(String input) {
-        var ints = Arrays.stream(input.split("\n"))
+        return Util.splitInput(input).stream()
             .map(Integer::parseInt)
             .toList();
-        return ints;
+
     }
 
     public int countWindowIncrease(String input) {
