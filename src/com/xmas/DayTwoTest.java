@@ -8,6 +8,8 @@ class DayTwoTest {
 
     DayTwo sut = new DayTwo();
 
+    DayTwoAlternate altSut = new DayTwoAlternate();
+
 
     @Test
     public void oneExample() {
@@ -15,15 +17,31 @@ class DayTwoTest {
         assertEquals(150, result);
 
     }
+
+    @Test
+    public void oneAltExample() {
+        var result = altSut.solveOne(exampleInput);
+        assertEquals(150, result);
+    }
+
     @Test
     public void one() {
         var result = sut.solveOne(input);
         System.out.println(result);
+        assertEquals(1580000, result);
 
     }
 
     @Test
-        public void twoExample() {
+    public void oneAlt() {
+        var result = altSut.solveOne(input);
+        System.out.println(result);
+        assertEquals(1580000, result);
+
+    }
+
+    @Test
+    public void twoExample() {
         var result = sut.solveTwo(exampleInput);
         assertEquals(900, result);
     }
