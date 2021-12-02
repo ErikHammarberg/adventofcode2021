@@ -29,7 +29,6 @@ class DayTwoTest {
         var result = sut.solveOne(input);
         System.out.println(result);
         assertEquals(1580000, result);
-
     }
 
     @Test
@@ -37,7 +36,6 @@ class DayTwoTest {
         var result = altSut.solveOne(input);
         System.out.println(result);
         assertEquals(1580000, result);
-
     }
 
     @Test
@@ -45,11 +43,23 @@ class DayTwoTest {
         var result = sut.solveTwo(exampleInput);
         assertEquals(900, result);
     }
+    @Test
+    public void twoAltExample() {
+        var result = altSut.solveTwo(exampleInput);
+        assertEquals(900, result);
+    }
+
+    @Test
+    public void twoAlt() {
+        var result = altSut.solveTwo(input);
+        assertEquals(1251263225, result);
+    }
 
     @Test
     public void two() {
         var result = sut.solveTwo(input);
         System.out.println(result);
+        assertEquals(1251263225, result);
 
     }
 
