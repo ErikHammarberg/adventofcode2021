@@ -22,6 +22,18 @@ class DayTwoTest {
 
     }
 
+    @Test
+        public void twoExample() {
+        var result = sut.solveTwo(exampleInput);
+        assertEquals(900, result);
+    }
+
+    @Test
+    public void two() {
+        var result = sut.solveTwo(input);
+        System.out.println(result);
+
+    }
 
     String exampleInput = """
         forward 5
