@@ -27,14 +27,45 @@ public class Day3 {
 
         return firstNum * secondNum;
 
+    }
 
 
+    public int solvTwo(String input) {
+        var inputs = Util.splitInput(input);
 
 
-
-
+        var oxy = Integer.parseInt(twoRecusiveOxy(inputs, 0),2);
+        var co = Integer.parseInt(twoRecusiveCo(inputs, 0),2);
+        return  oxy * co;
 
     }
+
+    private String twoRecusiveOxy(List<String> strings, int index) {
+        int result = 0;
+        for(String s : strings) {
+            result += s.charAt(index) == '0' ? -1 : 1;
+        }
+        int finalResult = result;
+        var newStrings = strings.stream().filter(s -> s.charAt(index) == (finalResult < 0 ? '0' : '1')).toList();
+        if (newStrings.size() == 1) {
+            return newStrings.get(0);
+        }
+        return twoRecusiveOxy(newStrings, index+1);
+    }
+
+    private String twoRecusiveCo(List<String> strings, int index) {
+        int result = 0;
+        for(String s : strings) {
+            result += s.charAt(index) == '0' ? -1 : 1;
+        }
+        int finalResult = result;
+        var newStrings = strings.stream().filter(s -> s.charAt(index) == (finalResult >= 0 ? '0' : '1')).toList();
+        if (newStrings.size() == 1) {
+            return newStrings.get(0);
+        }
+        return twoRecusiveCo(newStrings, index+1);
+    }
+
 
     private int calcer(int previous, int number) {
         return number == '0' ? previous -1 : previous+ 1;

@@ -1,6 +1,6 @@
 package com.xmas;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
@@ -19,6 +19,19 @@ class Day3Test {
         var result = sut.solveOne(input);
         System.out.println(result);
         assertEquals(852500, result);
+    }
+
+    @Test
+    public void testTwoExample() {
+        var result = sut.solvTwo(exampleInput);
+        assertEquals(230, result);
+    }
+
+    @Test
+    public void testTwoe() {
+        var result = sut.solvTwo(input);
+        assertEquals(1007985, result);
+        System.out.println(result);
     }
 
     String exampleInput = """
