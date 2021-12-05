@@ -28,6 +28,35 @@ public class Day4 {
         return -45;
     }
 
+    public int solveTwo(String input) {
+        var inputs = Util.splitInput(input);
+
+        List<BingoBoard> boards = new ArrayList<>();
+
+        for(int i = 2 ; i < inputs.size(); i+=6 ) {
+            boards.add(
+                    new BingoBoard(inputs.subList(i , i+5))
+            );
+        }
+
+        int lastToWin = -1;
+
+        for (String s:  inputs.get(0).split(",")) {
+            int num = Integer.parseInt(s);
+
+            for(var literator = boards.listIterator(); literator.hasNext(); ) {
+                var board = literator.next();
+                var result = board.parseNumber(num);
+                if(result > 0) {
+                    lastToWin = result * num;
+                    literator.remove();
+                }
+            }
+
+        }
+        return lastToWin;
+    }
+
     class BingoBoard {
         Map<Integer, BoardPosition> positionSearchMap = new TreeMap<>();
         int[][] checked = new int[5][5];
