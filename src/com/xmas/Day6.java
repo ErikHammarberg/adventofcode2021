@@ -1,37 +1,37 @@
 package com.xmas;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Day6 {
 
-    public int solveOne(String input, int numDays) {
-        var nums = Arrays.stream(input.split(",")).map(Integer::parseInt).map(Fish::new).toList();
+    public long solve(String input, int numDays) {
 
-        List<Fish> resultList = new ArrayList<>();
-        resultList.addAll(nums);
-        for(int i = 0; i < numDays; i++) {
-            var newList = resultList.stream().map(Fish::passDay).filter(f -> f != null).toList();
-            resultList.addAll(newList);
+
+        var nums = Arrays.stream(input.split(","))
+            .map(Integer::parseInt)
+            .reduce(new long[9], (a, elem) ->
+            {
+                a[elem]++;
+                return a;
+            }, (a,b) -> a);
+
+
+        for(int i = 0 ; i < numDays; i++) {
+           nums = stepDay(nums);
         }
-        return resultList.size();
+        return Arrays.stream(nums).sum();
+
     }
 
-    class Fish {
-        int daysToHatch;
-        Fish(int daysToHatch) {
-            this.daysToHatch = daysToHatch;
+    long[] stepDay (long[] hej) {
+        var result = new long[9];
+        for (int inner = 8; inner > 0; inner--) {
+            result[inner -1] = hej[inner];
         }
-
-        Fish passDay() {
-            if (daysToHatch == 0) {
-                daysToHatch = 6;
-                return new Fish(8);
-            } else {
-                daysToHatch--;
-                return null;
-            }
-        }
+        result[8] = hej[0];
+        result[6] += hej[0];
+        return result;
     }
+
+
 }

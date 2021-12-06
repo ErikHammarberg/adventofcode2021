@@ -7,23 +7,32 @@ import org.junit.jupiter.api.Test;
 class Day6Test {
 
     Day6 sut = new Day6();
+
+
     @Test
     public void exampleOne() {
-        var resutl = sut.solveOne(example, 80);
+        var resutl = sut.solve(example, 80);
         assertEquals(5934, resutl);
     }
 
     @Test
     public void One() {
-        var resutl = sut.solveOne(input, 80);
+        var resutl = sut.solve(input, 80);
         System.out.println(resutl);
         assertEquals(349549, resutl);
     }
 
     @Test
-        public void TwoExample() {
-        var result = sut.solveOne(example, 256);
+    public void TwoExample() {
+        var result = sut.solve(example, 256);
         assertEquals(26984457539l, result);
+    }
+
+    @Test
+        public void Two() {
+        var result = sut.solve(input, 256);
+        assertEquals(1589590444365l, result);
+        System.out.println(result);
     }
 
     String example = """
