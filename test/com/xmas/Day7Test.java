@@ -21,6 +21,19 @@ class Day7Test {
         assertEquals(364898, result);
     }
 
+    @Test
+    public void exampleTwo() {
+        var result = sut.two(example);
+        assertEquals(168, result);
+    }
+
+    @Test
+    public void two() {
+        var result = sut.two(input);
+        System.out.println(result);
+        assertEquals(104149091, result);
+    }
+
 
     String example = "16,1,2,0,4,2,7,1,2,14";
 
