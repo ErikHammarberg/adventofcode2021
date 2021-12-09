@@ -65,6 +65,8 @@ b    .  b    .  .    c  b    c  b    c
 
         int[][] hints = new int[7][7];
 
+        Map<String, FoundMapping> mappings = new HashMap<>();
+
         void parseHint(String inputs, List<String> actuals) {
             if(inputs.length() == 2) {
                 for(int j = 0; j < inputs.length(); j++) {
@@ -111,6 +113,26 @@ b    .  b    .  .    c  b    c  b    c
 
         void searchMappings() {
 
+            for (int i = 0; i < hints.length; i ++) {
+                int numHints = 0;
+                int lastOne = -1;
+                for (int inner = 0; inner < hints[i].length; inner++) {
+                    if(hints[i][inner] > 0) {
+                        numHints++;
+                        lastOne = inner;
+                    }
+                }
+                if(numHints == 1) {
+                    var mapping = new FoundMapping(reversParse(i), reversParse(lastOne));
+                    mappings.put(i, mapping);
+                }
+            }
+
+
+
+        }
+        String reversParse(int in){
+            translator.entrySet().stream().filter(e -> e.getValue().equals(in)).map(e -> e.getKey()).findFirst().get();
         }
 
 
