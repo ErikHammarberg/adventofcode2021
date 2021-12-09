@@ -87,9 +87,6 @@ b    .  b    .  .    c  b    c  b    c
 
         }
 
-        int isPresent (String input) {
-
-        }
 
         int presentInOthers(String input, List<String> actual) {
             var forInput = hints[translator.get(input)];
