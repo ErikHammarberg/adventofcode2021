@@ -73,31 +73,29 @@ b    .  b    .  .    c  b    c  b    c
                 }
             }
 
-            var nopresents = new ArrayList<String>();
-            var presents = new ArrayList<String>();
+            var notUsed = new ArrayList<String>();
+            var mappedActs = new ArrayList<Integer>();
             for(int i = 0; i< inputs.length(); i++) {
-                var s = ""+ inputs.charAt(i);
-                if(presentInOthers(s, actuals) == 0) {
-                    nopresents.add(s);
+                var s = "" + inputs.charAt(i);
+                var used = findWhereUsed(s);
+                if(used.size() == 0) {
+                    notUsed.add(s);
                 } else {
-                    presents.add(s);
+                    var actualsNotInThisCall = used.stream()
+                        .filter(use -> actuals.stream()
+                            .map(inpa -> translator.get(inpa)).anyMatch(inpAct -> inpAct.equals(use))
+                        ).toList();
+                    actualsNotInThisCall.forEach(ac -> hints[translator.get(s)][ac] = 0);
+                    mappedActs.addAll(used);
                 }
             }
 
+            actuals.stream()
+                .map(ac -> translator.get(ac))
+                .filter(ac -> !mappedActs.contains(ac)).forEach(ac -> {
+                notUsed.stream().map(translator::get).forEach(inp -> hints[inp][ac] = 1);
+            });
 
-        }
-
-
-        int presentInOthers(String input, List<String> actual) {
-            var forInput = hints[translator.get(input)];
-            int result = 0;
-            for(int i = 0; i < forInput.length; i++) {
-                final int ii = i;
-                if(!actual.stream().map(s -> translator.get(s)).anyMatch(act -> act == ii)) {
-                    result += forInput[i];
-                }
-            }
-            return result;
         }
 
         List<Integer> findWhereUsed(String input) {
@@ -110,6 +108,25 @@ b    .  b    .  .    c  b    c  b    c
             }
             return resultList;
         }
+
+        void searchMappings() {
+
+        }
+
+
+//        int presentInOthers(String input, List<String> actual) {
+//            var forInput = hints[translator.get(input)];
+//            int result = 0;
+//            for(int i = 0; i < forInput.length; i++) {
+//                final int ii = i;
+//                if(!actual.stream().map(s -> translator.get(s)).anyMatch(act -> act == ii)) {
+//                    result += forInput[i];
+//                }
+//            }
+//            return result;
+//        }
+
+
 
 
 
