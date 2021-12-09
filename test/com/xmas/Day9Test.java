@@ -21,6 +21,19 @@ class Day9Test {
         assertEquals(594, result);
     }
 
+    @Test
+    public void testExTwo() {
+        var result = sut.two(example);
+        assertEquals(1134, result);
+    }
+
+    @Test
+        public void two() {
+        var result = sut.two(input);
+        System.out.println(result);
+        assertEquals(858494, result);
+    }
+
     String example = """
         2199943210
         3987894921
