@@ -124,7 +124,7 @@ b    .  b    .  .    c  b    c  b    c
                 }
                 if(numHints == 1) {
                     var mapping = new FoundMapping(reversParse(i), reversParse(lastOne));
-                    mappings.put(i, mapping);
+                    mappings.put(reversParse(i), mapping);
                 }
             }
 
@@ -132,7 +132,7 @@ b    .  b    .  .    c  b    c  b    c
 
         }
         String reversParse(int in){
-            translator.entrySet().stream().filter(e -> e.getValue().equals(in)).map(e -> e.getKey()).findFirst().get();
+            return translator.entrySet().stream().filter(e -> e.getValue().equals(in)).map(e -> e.getKey()).findFirst().get();
         }
 
 
