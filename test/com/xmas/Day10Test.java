@@ -21,6 +21,19 @@ class Day10Test {
         assertEquals(26397, result);
     }
 
+    @Test
+    public  void twoEx() {
+        var result = sut.two(example);
+        assertEquals(288957, result);
+    }
+
+    @Test
+    public  void two() {
+        var result = sut.two(input);
+        System.out.println(result);
+        assertEquals(3249889609l, result);
+    }
+
 
     String example = """
         [({(<(())[]>[[{[]{<()<>>
