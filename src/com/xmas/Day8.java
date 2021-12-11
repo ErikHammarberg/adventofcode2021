@@ -141,8 +141,11 @@ b    .  b    .  .    c  b    c  b    c
 
                 }
              }
-
+            // not done
+            return "";
         }
+
+
 
 
 //        int presentInOthers(String input, List<String> actual) {
