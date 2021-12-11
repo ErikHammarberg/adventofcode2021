@@ -30,6 +30,22 @@ class Day11Test {
 
     }
 
+
+    @Test
+    public void twoEx2 () {
+        var result = sut.two(example, 100);
+        assertEquals(195, result);
+
+    }
+
+    @Test
+    public void two () {
+        var result = sut.two(input, 100);
+        System.out.println(result);
+        assertEquals(212, result);
+
+    }
+
     String example = """
             5483143223
             2745854711

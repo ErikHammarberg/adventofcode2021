@@ -23,6 +23,26 @@ public class Day11 {
         return totalBlinkers;
     }
 
+    public int two(String input, int num) {
+        nums = parseInput(input);
+        int totalBlinkers = 0;
+
+        for(int i = 0; i < Integer.MAX_VALUE; i++) {
+            var blinker = new HashSet<Point>();
+            for (int x = 0; x < 10; x++) {
+                for(int y = 0; y < 10; y++) {
+                    addValue(new Point(x,y), blinker);
+                }
+            }
+            if(blinker.size() == 100) {
+                return i+1;
+            }
+            resetFlashed(blinker);
+            totalBlinkers += blinker.size();
+        }
+        return totalBlinkers;
+    }
+
     int[][] parseInput(String input) {
 
         var inputs = Arrays.stream(input.split("\n"))
