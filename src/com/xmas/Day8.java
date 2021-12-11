@@ -97,6 +97,7 @@ b    .  b    .  .    c  b    c  b    c
                 .filter(ac -> !mappedActs.contains(ac)).forEach(ac -> {
                 notUsed.stream().map(translator::get).forEach(inp -> hints[inp][ac] = 1);
             });
+            searchMappings();
 
         }
 
@@ -112,7 +113,6 @@ b    .  b    .  .    c  b    c  b    c
         }
 
         void searchMappings() {
-
             for (int i = 0; i < hints.length; i ++) {
                 int numHints = 0;
                 int lastOne = -1;
@@ -124,15 +124,24 @@ b    .  b    .  .    c  b    c  b    c
                 }
                 if(numHints == 1) {
                     var mapping = new FoundMapping(reversParse(i), reversParse(lastOne));
-                    mappings.put(i, mapping);
+                    mappings.put(reversParse(i), mapping);
                 }
             }
-
-
-
         }
         String reversParse(int in){
-            translator.entrySet().stream().filter(e -> e.getValue().equals(in)).map(e -> e.getKey()).findFirst().get();
+            return translator.entrySet().stream()
+                    .filter(e -> e.getValue().equals(in)).map(e -> e.getKey())
+                    .findFirst().get();
+        }
+
+        String removeFoundMappings(String inputs, List<String> actuals) {
+            for(int i = 0; i < inputs.length(); i++) {
+                var actual = mappings.get(""+inputs.charAt(i));
+                if (actual != null) {
+
+                }
+             }
+
         }
 
 
