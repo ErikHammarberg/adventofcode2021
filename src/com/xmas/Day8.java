@@ -47,16 +47,46 @@ b    .  b    .  .    c  b    c  b    c
         }
     }
 
-    public int one(String input) {
+    public long one(String input) {
         var inputs = Util.splitInput(input);
 
         var stuff = inputs.get(0).split("\\|");
         var hints = Arrays.stream(stuff[0].split("\\s")).sorted((a,b) -> a.length() - b.length()).toList();
+        var garbledDigits = inputs.stream().map(s -> s.split("\\|")[1])
+                .map(s -> s.split("\\s")).toList();
+
         var hintSolver = new Hints();
         hintSolver.parseHint(hints.get(0), Digit.ONE.segments);
         hintSolver.parseHint(hints.get(1), Digit.SEVEN.segments);
+        hintSolver.parseHint(hints.get(2), Digit.FOUR.segments);
+
+        return countKnownDigits(garbledDigits);
+    }
+
+    public long two(String input) {
+
+        var inputs = Util.splitInput(input);
+
+        var stuff = inputs.get(0).split("\\|");
+        var hints = Arrays.stream(stuff[0].split("\\s")).sorted((a,b) -> a.length() - b.length()).toList();
+        var garbledDigits = inputs.stream().map(s -> s.split("\\|")[1])
+                .map(s -> s.split("\\s")).toList();
+
+        var hintSolver = new Hints();
+        hintSolver.parseHint(hints.get(0), Digit.ONE.segments);
+        hintSolver.parseHint(hints.get(1), Digit.SEVEN.segments);
+        hintSolver.parseHint(hints.get(2), Digit.FOUR.segments);
+        hintSolver.parseHint(hints.get(9), Digit.EIGHT.segments);
 
         return -1;
+
+    }
+
+    public long countKnownDigits(List<String[]> input) {
+        return input.stream().flatMap(s-> Arrays.stream(s)).filter(s -> s.length() == Digit.ONE.segments.size()||
+                s.length() == Digit.SEVEN.segments.size() ||
+                s.length() == Digit.FOUR.segments.size() ||
+                s.length() == Digit.EIGHT.segments.size() ).count();
     }
 
     static Map<String, Integer> translator = Map.of("a", 0, "b",1, "c",2, "d",3,"e",4,"f",5,"g",6);
@@ -68,12 +98,14 @@ b    .  b    .  .    c  b    c  b    c
         Map<String, FoundMapping> mappings = new HashMap<>();
 
         void parseHint(String inputs, List<String> actuals) {
-            if(inputs.length() == 2) {
-                for(int j = 0; j < inputs.length(); j++) {
-                    var s = ""+ inputs.charAt(j);
-                    actuals.forEach(i -> hints[translator.get(s)][translator.get(i)] = 1);
-                }
-            }
+//            if(inputs.length() == 2) {
+//                for(int j = 0; j < inputs.length(); j++) {
+//                    var s = ""+ inputs.charAt(j);
+//                    actuals.forEach(i -> hints[translator.get(s)][translator.get(i)] = 1);
+//                }
+//            }
+
+            inputs = removeFoundMappings(inputs, actuals);
 
             var notUsed = new ArrayList<String>();
             var mappedActs = new ArrayList<Integer>();
@@ -84,8 +116,9 @@ b    .  b    .  .    c  b    c  b    c
                     notUsed.add(s);
                 } else {
                     var actualsNotInThisCall = used.stream()
-                        .filter(use -> actuals.stream()
-                            .map(inpa -> translator.get(inpa)).anyMatch(inpAct -> inpAct.equals(use))
+                        .filter(use -> !actuals.stream()
+                            .map(inpa -> translator.get(inpa))
+                                .anyMatch(inpAct -> inpAct.equals(use))
                         ).toList();
                     actualsNotInThisCall.forEach(ac -> hints[translator.get(s)][ac] = 0);
                     mappedActs.addAll(used);
@@ -94,9 +127,10 @@ b    .  b    .  .    c  b    c  b    c
 
             actuals.stream()
                 .map(ac -> translator.get(ac))
-                .filter(ac -> !mappedActs.contains(ac)).forEach(ac -> {
-                notUsed.stream().map(translator::get).forEach(inp -> hints[inp][ac] = 1);
-            });
+                .filter(ac -> !mappedActs.contains(ac)).forEach(ac ->
+                    {
+                        notUsed.stream().map(translator::get).forEach(inp -> hints[inp][ac] = 1);
+                    });
             searchMappings();
 
         }
@@ -135,14 +169,16 @@ b    .  b    .  .    c  b    c  b    c
         }
 
         String removeFoundMappings(String inputs, List<String> actuals) {
+            var newInput = new StringBuilder();
             for(int i = 0; i < inputs.length(); i++) {
                 var actual = mappings.get(""+inputs.charAt(i));
                 if (actual != null) {
-
+                    actuals.remove(actual.actual());
+                } else {
+                    newInput.append(inputs.charAt(i));
                 }
              }
-            // not done
-            return "";
+            return newInput.toString();
         }
 
 
