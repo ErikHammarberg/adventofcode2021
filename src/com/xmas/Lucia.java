@@ -20,7 +20,31 @@ public class Lucia {
         solver.fold(folds.get(0));
         return solver.getSize();
     }
+
+    void two (String input) {
+        var inputs = input.split("\\n");
+        var points = Arrays.stream(inputs).filter(s -> s.matches("^\\d+,\\d+")).toList();
+        var folds = Arrays.stream(inputs).filter(s -> s.startsWith("fold")).toList();
+        var solver = new Folder();
+        solver.parsePoints(points);
+        folds.forEach(solver::fold);
+        solver.prettyPrint();
+
+    }
     class Folder {
+
+        void prettyPrint() {
+            var maxPoint = points.stream().reduce(new Point(0,0), (a, p) -> new Point(Math.max(a.x(), p.x()), Math.max(a.y(), p.y())));
+            char [][] painterArray = new char[maxPoint.y()+1][maxPoint.x()+1];
+            Arrays.stream(painterArray).forEach(a -> Arrays.fill(a, '.'));
+
+            points.stream().forEach(p -> painterArray[p.y()][p.x()] = '#');
+            System.out.println(painterArray);
+            String result = Arrays.stream(painterArray).reduce("", (s, c) -> s + Arrays.toString(c) + "\n", (a,b)->a );
+
+            System.out.println(result);
+
+        }
 
         Set<Point> points = new HashSet<>();
 //        SortedSet<Point> xSorted = new TreeSet<Point>((p1, p2) -> p2.x() - p1.x());

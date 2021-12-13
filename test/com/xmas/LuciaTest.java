@@ -23,6 +23,16 @@ class LuciaTest {
 
     }
 
+    @Test
+    public void twoEx() {
+        sut.two(example);
+    }
+
+    @Test
+    public void two() {
+        sut.two(input);
+    }
+
     String example = """
         6,10
         0,14
