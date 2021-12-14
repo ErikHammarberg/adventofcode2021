@@ -39,16 +39,13 @@ public class Lucia {
             Arrays.stream(painterArray).forEach(a -> Arrays.fill(a, '.'));
 
             points.stream().forEach(p -> painterArray[p.y()][p.x()] = '#');
-            System.out.println(painterArray);
-            String result = Arrays.stream(painterArray).reduce("", (s, c) -> s + Arrays.toString(c) + "\n", (a,b)->a );
+            String result = Arrays.stream(painterArray).reduce("", (s, c) -> s + Arrays.toString(c).replaceAll(",","") + "\n", (a,b)->a );
 
             System.out.println(result);
 
         }
 
         Set<Point> points = new HashSet<>();
-//        SortedSet<Point> xSorted = new TreeSet<Point>((p1, p2) -> p2.x() - p1.x());
-//        SortedSet<Point> ySorted = new TreeSet<>((p1, p2) -> p2.y() - p1.y());
 
         int getSize() {
             return points.size();
@@ -59,8 +56,6 @@ public class Lucia {
                 final int x = Integer.parseInt(sSplit[0]);
                 final int y = Integer.parseInt(sSplit[1]);
                 final Point point = new Point(x, y);
-//                xSorted.add(point);
-//                ySorted.add(point);
                 points.add(point);
             });
         }
