@@ -16,12 +16,18 @@ class Day15Test {
     }
 
     @Test
+    public void twoEx() {
+        var result = sut.two(example);
+        assertEquals(315, result);
+    }
+
+    @Test
     public void one() {
         var result = sut.one(input);
         System.out.println(result);
         assertTrue(result < 559);
         assertTrue(result < 531);
-        assertEquals(40, result);
+        assertEquals(386, result);
     }
 
     String example = """
