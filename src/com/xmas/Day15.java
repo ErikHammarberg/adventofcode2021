@@ -1,9 +1,6 @@
 package com.xmas;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Day15 {
 
@@ -68,10 +65,16 @@ public class Day15 {
             for(int num = 0; num < 5; num++) {
                 int xAdder = initEdges.length * num;
                 int yAdder = initEdges[0].length * num;
+
                 for (int i = 0; i < initEdges.length; i++) {
                     for (int inner = 0; inner < initEdges[0].length; inner++) {
-                        resultEdges[i+xAdder][inner+yAdder] = makeMorphedMod(initEdges[i][inner] , num);
+                        resultEdges[i+xAdder][inner] = makeMorphedMod(initEdges[i][inner] , num);
                     }
+                }
+            }
+            for(int x = 0; x < resultEdges.length; x++) {
+                for(int y = initEdges.length; y< resultEdges[0].length;y++) {
+                    resultEdges[x][y] = makeMorphedMod(resultEdges[x][y - initEdges[0].length], 1);
                 }
             }
             return resultEdges;

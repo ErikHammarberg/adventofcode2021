@@ -22,6 +22,12 @@ class Day15Test {
     }
 
     @Test
+    public void two() {
+        var result = sut.two(input);
+        System.out.println(result);
+        assertEquals(2806, result);
+    }
+    @Test
     public void one() {
         var result = sut.one(input);
         System.out.println(result);

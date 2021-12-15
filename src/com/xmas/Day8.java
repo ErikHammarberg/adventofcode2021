@@ -97,7 +97,7 @@ b    .  b    .  .    c  b    c  b    c
 
         Map<String, FoundMapping> mappings = new HashMap<>();
 
-        void parseHint(String inputs, List<String> actuals) {
+        void parseHint(String inputs, List<String> actualsIn) {
 //            if(inputs.length() == 2) {
 //                for(int j = 0; j < inputs.length(); j++) {
 //                    var s = ""+ inputs.charAt(j);
@@ -105,6 +105,7 @@ b    .  b    .  .    c  b    c  b    c
 //                }
 //            }
 
+            var actuals = new ArrayList<>(actualsIn);
             inputs = removeFoundMappings(inputs, actuals);
 
             var notUsed = new ArrayList<String>();
