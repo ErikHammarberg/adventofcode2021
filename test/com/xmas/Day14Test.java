@@ -22,9 +22,19 @@ class Day14Test {
     }
 
     @Test
+    public void oneExTwoSol() {
+        var result = sut.two(example, 10);
+        assertEquals(1588, result);
+    }
+    @Test
     public void twoEx() {
-        var result = sut.one(example, 40);
+        var result = sut.two(example, 40);
         assertEquals(2188189693529l, result);
+    }
+
+    @Test
+    public void twoOneR() {
+        var result = sut.two(example, 1);
     }
 
     String example = """
