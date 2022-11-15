@@ -11,6 +11,13 @@ class Day8TestSecond {
     @Test
     public void firstL() {
         var result = sut.hello("acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf");
+        assertEquals(5353, result);
+    }
+
+    @Test
+    public void secondReal() {
+        var result = sut.hello(input);
+        assertEquals(0, result);
     }
 //
 //    @Test
