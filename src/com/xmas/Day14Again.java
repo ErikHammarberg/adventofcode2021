@@ -55,14 +55,16 @@ public class Day14Again {
 
         public void performRounds(int num) {
             for (int i = 1; i <= num; i++) {
+                var internalMap = new HashMap<String, Long>();
                 calcerMap.entrySet().stream()
                         .forEach(e -> {
                             var resultLetter = replacerMap.get(e.getKey());
                             var left = e.getKey().substring(0, 1) + resultLetter;
                             var right = resultLetter + e.getKey().substring(1, 2);
-                            calcerMap.put(left, e.getValue() + calcerMap.getOrDefault(left, 0l));
-                            calcerMap.put(right, e.getValue() + calcerMap.getOrDefault(right, 0l));
+                            internalMap.put(left, e.getValue() + calcerMap.getOrDefault(left, 0l));
+                            internalMap.put(right, e.getValue() + calcerMap.getOrDefault(right, 0l));
                         });
+                calcerMap.putAll(internalMap);
             }
         }
 
@@ -77,8 +79,8 @@ public class Day14Again {
                         var right = e.getKey().substring(1);
                         numMap.put(right, numMap.getOrDefault(right, 0l) + e.getValue());
                     });
-            var max = calcerMap.values().stream().mapToLong(l -> l).max().getAsLong();
-            var min = calcerMap.values().stream().mapToLong(l -> l).min().getAsLong();
+            var max = numMap.values().stream().mapToLong(l -> l).max().getAsLong();
+            var min = numMap.values().stream().mapToLong(l -> l).min().getAsLong();
             return (max / 2) - (min / 2);
         }
     }
