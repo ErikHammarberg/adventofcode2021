@@ -3,6 +3,7 @@ package com.xmas;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class Day14AgainTest {
 
@@ -12,6 +13,27 @@ class Day14AgainTest {
     public void oneEx() {
         var result = sut.two(example, 10);
         assertEquals(1588, result);
+    }
+
+    @Test
+    public void one() {
+        var result = sut.two(input, 10);
+        System.out.println(result);
+        assertEquals(4244, result);
+    }
+
+    @Test
+    public void twoExample() {
+        var result = sut.two(example, 40);
+        System.out.println(result);
+        assertEquals(2188189693529l, result);
+    }
+
+    @Test
+    public void two() {
+        var result = sut.two(input, 40);
+        System.out.println(result);
+        assertTrue(4807056953867l > result);
     }
 
 //    @Test
